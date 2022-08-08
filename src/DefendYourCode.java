@@ -11,11 +11,10 @@ public class DefendYourCode {
         int integer1 = collectInteger(scan);
         System.out.println("Collecting Integer 2");
         int integer2 = collectInteger(scan);
+        System.out.println("Collecting input file");
         String inputFileName = collectFileName(scan);
+        System.out.println("Collecting output file");
         String outputFileName = collectFileName(scan);
-
-
-
 
 
 
@@ -114,6 +113,12 @@ public class DefendYourCode {
         }
 
     }
+
+    /**
+     * The file being collected must already be collect and must be a .txt file.
+     * @param theInput
+     * @return
+     */
     public static String collectFileName(Scanner theInput) {
         String userResponse = "";
 
@@ -130,19 +135,29 @@ public class DefendYourCode {
         }
 
     }
+
+    /**
+     * The file must be a .txt
+     * @param theFileName
+     * @return
+     */
     public static boolean validateFileName(String theFileName) {
         //[^#|%|&|{|}|\|<|>|\*|\?|\\| |$|!|`|"|:|@|\+|'\|=][a-zA-Z0-9-]{1,31}.txt
         String regex = "[a-zA-Z0-9()\\[\\]\\/\\?\\-]{1,31}.txt";
         if(regexEngine(regex, theFileName)) {
             try {
                 File test = new File(theFileName);
+                if(!test.exists()) {
+                    return false;
+                }
             } catch (Exception e) {
                 return false;
             }
+            return true;
 
+        } else {
+            return false;
         }
-
-        return false;
     }
 
 }
