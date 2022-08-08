@@ -1,4 +1,7 @@
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,7 +34,55 @@ public class DefendYourCode {
         String inputFileName = collectFileName(scan);
         System.out.println("Collecting output file");
         String outputFileName = collectFileName(scan);
+        printIntoFile(userName, integer1, integer2, inputFileName, outputFileName);
+    }
 
+    /**
+     * Prints information into output file
+     * @param theUserName the users name
+     * @param theInt1 the first integer of two typed by the user
+     * @param theInt2 the second integer of two typed by the user
+     * @param theInFileName name of the input file
+     * @param theOutFileName name of the output file
+     */
+    public static void printIntoFile(String theUserName, int theInt1, int theInt2,
+                                     String theInFileName, String theOutFileName){
+        try{
+            FileWriter myWriter = new FileWriter(theOutFileName);
+            String[] theNames = theUserName.split(" ");
+            myWriter.write("First Name: " + theNames[0] + "\n");
+            myWriter.write("Last Name: " + theNames[1] + "\n");
+            myWriter.write("First integer: " + theInt1 + "\nSecond integer: " + theInt2 + "\n");
+            int theSum = theInt1 + theInt2;
+            int theProduct = theInt1 * theInt2;
+            myWriter.write("The Sum: " + theSum + "\nThe Product: " + theProduct + "\n");
+            myWriter.write("Input File Name: " + theInFileName + "\n");
+            myWriter.write("The Contents of the input file are below:\n");
+            myWriter.write(getInputContents(theInFileName));
+        } catch (IOException e){
+            System.out.println("An Error occured.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Method to retrive the contents of the Input file
+     * @param theInFileName name of the input file.
+     * @return the contents of the input file.
+     */
+    public static String getInputContents(String theInFileName) {
+        StringBuilder theResult = new StringBuilder();
+        try {
+            FileReader fr=new FileReader(theInFileName);
+            int r=0;
+            while((r=fr.read())!=-1)
+            {
+                theResult.append((char) r);  //prints the content of the file
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return theResult.toString();
     }
 
     /**
@@ -39,8 +90,8 @@ public class DefendYourCode {
      * most 50 characters, special characters allowed
      * -- decide what is legitimate for characters for first and last name
      * EX: Varun Parbhakar
-     * @param theText
-     * @return
+     * @param theText text representing name
+     * @return true if the name is valid
      */
     public static boolean validateName(String theText) {
         String regex = "[a-zA-Z]{2,50} [a-zA-Z]{2,50}";
@@ -49,8 +100,8 @@ public class DefendYourCode {
 
     /**
      * This method collects the user's name. Prompts for and reads the user's first name, then last name.
-     * @param theInput
-     * @return
+     * @param theInput scanner for the input by user
+     * @return The name collected
      */
     public static String collectName(Scanner theInput) {
         String userResponse = "";
@@ -72,8 +123,8 @@ public class DefendYourCode {
     /**
      * Validates the input is an integer and also confirms that the integer is in
      * the range of the INT datatype.
-     * @param theText
-     * @return
+     * @param theText Integer to be validated
+     * @return true if integer is valid
      */
     public static boolean validateInteger(String theText) {
         String regex = "(-)?\\d{1,10}";
@@ -93,7 +144,7 @@ public class DefendYourCode {
      * prompts for and reads in two int values from the user (range of values are those of a 4 byte int)
      * Max and Minimum integers are allowed, anything that is not an integer will be
      * considered false.
-     * @param theInput
+     * @param theInput scanner to gather input
      * @return integer
      */
     public static int collectInteger(Scanner theInput) {
@@ -114,8 +165,8 @@ public class DefendYourCode {
 
     /**
      * The file being collected must already be created and must be a .txt file.
-     * @param theInput
-     * @return
+     * @param theInput scanner for input
+     * @return String for filename
      */
     public static String collectFileName(Scanner theInput) {
         String userResponse = "";
@@ -137,8 +188,8 @@ public class DefendYourCode {
      * This method validates the file name, also confirms that the file
      * passed in exists, if the file doesn't exist then the method will not create
      * a new file.
-     * @param theFileName
-     * @return
+     * @param theFileName filename to be validated
+     * @return true if the filename is valid
      */
     public static boolean validateFileName(String theFileName) {
         //[^#|%|&|{|}|\|<|>|\*|\?|\\| |$|!|`|"|:|@|\+|'\|=][a-zA-Z0-9-]{1,31}.txt
