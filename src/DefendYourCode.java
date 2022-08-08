@@ -12,9 +12,7 @@ public class DefendYourCode {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
 
-
         String userName = collectName(scan);
-
 
         //Collecting integer
         // The user has the ability to enter the max integer
@@ -34,21 +32,6 @@ public class DefendYourCode {
         System.out.println("Collecting output file");
         String outputFileName = collectFileName(scan);
 
-
-
-
-
-//        for (int i = 0; i < 10; i++) {
-//            System.out.print("Please enter an integer: ");
-//            String userInput  = scan.nextLine();
-//            if(getInteger(userInput)) {
-//                System.out.println(Integer.parseInt(userInput));
-//                System.out.println(getInteger(userInput));
-//            } else {
-//                System.out.println("false");;
-//            }
-//
-//        }
     }
 
     /**
