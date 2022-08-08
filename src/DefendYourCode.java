@@ -72,7 +72,6 @@ public class DefendYourCode {
     public static String collectName(Scanner theInput) {
         String userResponse = "";
 
-
         while(true) {
             System.out.print("Please enter in your name: ");
             userResponse = theInput.nextLine().strip();
@@ -83,8 +82,6 @@ public class DefendYourCode {
                 System.out.println("Error: Please enter a name EX \"Varun Parbhakar\"");
             }
         }
-
-
 
     }
 
@@ -139,7 +136,6 @@ public class DefendYourCode {
      */
     public static String collectFileName(Scanner theInput) {
         String userResponse = "";
-
 
         while(true) {
             System.out.print("Please enter file name: ");
