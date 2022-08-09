@@ -177,7 +177,7 @@ public class DefendYourCode {
      * @param theInput
      * @return
      */
-    private static void collectPassword(Scanner theInput) {
+    public static void collectPassword(Scanner theInput) {
     	String userResponse = "";
 		SecureRandom rand = new SecureRandom();
     	byte [] salt = new byte[16];
@@ -209,7 +209,7 @@ public class DefendYourCode {
     	}
     }
 
-    private static boolean verifyPassword(byte[] thePassword) {
+    public static boolean verifyPassword(byte[] thePassword) {
     	File file = new File("Password.txt");
     	Path p = file.toPath();
     	
@@ -230,7 +230,7 @@ public class DefendYourCode {
      * @param thePassword
      * @return
      */
-    private static boolean validatePassword(String thePassword) {
+    public static boolean validatePassword(String thePassword) {
     	String regex = "^(?=.+[a-z])(?=.+[A-Z])(?=.+[!?.,()\\]\\[{}])(?=.+\\d)(?!.+[a-z][a-z][a-z])(?![a-z][a-z][a-z])[a-zA-z!?.,()\\]\\[{}\\d]{10,}$";
     	return regexEngine(regex, thePassword);
     }
@@ -242,7 +242,7 @@ public class DefendYourCode {
      * @return
      * @throws InvalidKeySpecException 
      */
-    private static byte[] hashPassword(String thePassword, byte[] salt) {
+    public static byte[] hashPassword(String thePassword, byte[] salt) {
     	KeySpec spec = new PBEKeySpec(thePassword.toCharArray(), salt, 65536, 128);
     	try {
 			SecretKeyFactory fact = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
@@ -259,7 +259,7 @@ public class DefendYourCode {
      * Creates the password file and writes the password into it 
      * @param thePassword
      */
-    private static void createPasswordFile(byte[] thePassword) {
+    public static void createPasswordFile(byte[] thePassword) {
     	File pass = new File("Password.txt");
     	try {
 			Path file = pass.toPath();
