@@ -20,6 +20,47 @@ def main():
 
         print("Collecting password")
         collectPassword()
+        printToOutputFile(userName, integer1, integer2, inputFile, outputFile)
+
+def printIntoFile(theUserName, theInt1, theInt2, theInFile, theOutFile):
+    theFileWrite = open(theOutFile, "w")
+    theSplitNames = theUserName.split()
+    theFirstName = theSplitNames[0]
+    theLastName = theSplitNames[1]
+    theFileWrite.write("First Name: " + theFirstName + "\n")
+    theFileWrite.write("Last Name: " + theLastName + "\n")
+    theFileWrite.write("First Integer: " + theInt1 + "\nSecondInteger: " + theInt2)
+    theSum = addingInts(theInt1, theInt2)
+    theProduct = multiplyInts(theInt1, theInt2)
+    theFileWrite.write("\nThe Sum: " + theSum + "\nTheProduct: " + theProduct)
+    theFileWrite.write("\nInput File Name: " + theInFile + "\n")
+    theFileWrite.write("The contents of the input file are below:\n")
+    theFileWrite.write(getInputContents(theInFile))
+
+def getInputContents(theInFile):
+    theTextFile = open(theInFile)
+    result = theTextFile.read()
+    theTextFile.close()
+    return result
+
+
+def addingInts(theInt1, theInt2):
+    result = ""
+    theSum = theInt1 + theInt2
+    if(theSum > 2 ** 31 - 1 || theSum < -2 ** 32):
+        result += "integer Overflow occurs"
+    else:
+        result += theSum
+    return result
+
+def multiplyInts(theInt1, theInt2):
+    result = ""
+    theMult = theInt1 * theInt2
+    if(theMult > 2 ** 31 - 1 || theMult < -2 ** 32):
+        result += "integer Overflow occurs"
+    else:
+        result += theMult
+    return result
 
 def collectName():
 

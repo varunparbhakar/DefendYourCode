@@ -70,6 +70,7 @@ public class DefendYourCode {
             myWriter.write("Input File Name: " + theInFileName + "\n");
             myWriter.write("The Contents of the input file are below:\n");
             myWriter.write(getInputContents(theInFileName));
+            myWriter.close();
         } catch (IOException e){
             System.out.println("An Error occurred.");
             e.printStackTrace();
@@ -87,6 +88,7 @@ public class DefendYourCode {
         result += theSum;
         return result;
     }
+
     public static String multiplyInts(int theInt1, int theInt2){
         String result = "";
         long theProduct = (long)theInt1 * (long)theInt2;
