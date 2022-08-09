@@ -75,6 +75,7 @@ public class DefendYourCode {
             e.printStackTrace();
         }
     }
+
     public static String addingInts(int theInt1, int theInt2){
         String result = "";
         long theSum = (long)theInt1 + (long)theInt2;
