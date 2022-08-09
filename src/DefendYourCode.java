@@ -1,4 +1,6 @@
 import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -21,7 +23,8 @@ import javax.crypto.spec.PBEKeySpec;
 public class DefendYourCode {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-    //    String userName = collectName(scan);
+
+        String userName = collectName(scan);
 
         //Collecting integer
         // The user has the ability to enter the max integer
@@ -30,20 +33,89 @@ public class DefendYourCode {
         // then you can just convert it to Big Int and do the math or just write
         // the result as "overflow".
         System.out.println("Collecting Integer 1");
-    //    int integer1 = collectInteger(scan);
+        int integer1 = collectInteger(scan);
         System.out.println("Collecting Integer 2");
-    //    int integer2 = collectInteger(scan);
+        int integer2 = collectInteger(scan);
 
         //Collecting File Name
         //Make sure the input and output file names are not the same when collected
         System.out.println("Collecting input file");
-    //    String inputFileName = collectFileName(scan);
+        String inputFileName = collectFileName(scan);
         System.out.println("Collecting output file");
-   //     String outputFileName = collectFileName(scan);
-        
-        //Collecting password
+        String outputFileName = collectFileName(scan);
         System.out.println("Collecting password");
         collectPassword(scan);
+        printIntoFile(userName, integer1, integer2, inputFileName, outputFileName);
+    }
+
+    /**
+     * Prints information into output file
+     * @param theUserName the users name
+     * @param theInt1 the first integer of two typed by the user
+     * @param theInt2 the second integer of two typed by the user
+     * @param theInFileName name of the input file
+     * @param theOutFileName name of the output file
+     */
+    public static void printIntoFile(String theUserName, int theInt1, int theInt2,
+                                     String theInFileName, String theOutFileName){
+        try{
+            FileWriter myWriter = new FileWriter(theOutFileName);
+            String[] theNames = theUserName.split(" ");
+            myWriter.write("First Name: " + theNames[0] + "\n");
+            myWriter.write("Last Name: " + theNames[1] + "\n");
+            myWriter.write("First integer: " + theInt1 + "\nSecond integer: " + theInt2 + "\n");
+            String theSum = addingInts(theInt1, theInt2);
+            String theProduct = multiplyInts(theInt1, theInt2);
+            myWriter.write("The Sum: " + theSum + "\nThe Product: " + theProduct + "\n");
+            myWriter.write("Input File Name: " + theInFileName + "\n");
+            myWriter.write("The Contents of the input file are below:\n");
+            myWriter.write(getInputContents(theInFileName));
+        } catch (IOException e){
+            System.out.println("An Error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    public static String addingInts(int theInt1, int theInt2){
+        String result = "";
+        long theSum = (long)theInt1 + (long)theInt2;
+        if(theSum > Integer.MAX_VALUE){
+            throw new ArithmeticException("Integer Overflow from addition");
+        } else if(theSum < Integer.MIN_VALUE){
+            throw new ArithmeticException("Integer Underflow from addition");
+        }
+        result += theSum;
+        return result;
+    }
+    public static String multiplyInts(int theInt1, int theInt2){
+        String result = "";
+        long theProduct = (long)theInt1 * (long)theInt2;
+        if(theProduct > Integer.MAX_VALUE){
+            throw new ArithmeticException("Integer Overflow from Multiplication");
+        } else if(theProduct < Integer.MIN_VALUE){
+            throw new ArithmeticException("Integer Underflow from Multiplication");
+        }
+        result += theProduct;
+        return result;
+    }
+    /**
+     * Method to retrieve the contents of the Input file
+     * @param theInFileName name of the input file.
+     * @return the contents of the input file.
+     */
+    public static String getInputContents(String theInFileName) {
+        StringBuilder theResult = new StringBuilder();
+        try {
+            FileReader fr=new FileReader(theInFileName);
+            int r=0;
+            while((r=fr.read())!=-1)
+            {
+                theResult.append((char) r);  //prints the content of the file
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+        return theResult.toString();
     }
 
     /**
@@ -171,7 +243,7 @@ public class DefendYourCode {
             return false;
         }
     }
-    
+
     /**
      * Collects the password from the user
      * @param theInput
@@ -212,7 +284,7 @@ public class DefendYourCode {
     public static boolean verifyPassword(byte[] thePassword) {
     	File file = new File("Password.txt");
     	Path p = file.toPath();
-    	
+
     	try {
 			byte [] passCheck = Files.readAllBytes(p);
 			if (Arrays.equals(passCheck, thePassword)) {
@@ -223,10 +295,10 @@ public class DefendYourCode {
 		}
     	return false;
     }
-    
+
     /**
      * Validates that the password matches its requirements
-     * Does not validate password re-entry 
+     * Does not validate password re-entry
      * @param thePassword
      * @return
      */
@@ -234,13 +306,13 @@ public class DefendYourCode {
     	String regex = "^(?=.+[a-z])(?=.+[A-Z])(?=.+[!?.,()\\]\\[{}])(?=.+\\d)(?!.+[a-z][a-z][a-z])(?![a-z][a-z][a-z])[a-zA-z!?.,()\\]\\[{}\\d]{10,}$";
     	return regexEngine(regex, thePassword);
     }
-  
+
     /**
      * Hashes the password with a salt
      * Code referenced/used from: https://www.baeldung.com/java-password-hashing
      * @param thePassword
      * @return
-     * @throws InvalidKeySpecException 
+     * @throws InvalidKeySpecException
      */
     public static byte[] hashPassword(String thePassword, byte[] salt) {
     	KeySpec spec = new PBEKeySpec(thePassword.toCharArray(), salt, 65536, 128);
@@ -254,9 +326,9 @@ public class DefendYourCode {
     	byte[] fail = null;
     	return fail;
     }
-    
+
     /**
-     * Creates the password file and writes the password into it 
+     * Creates the password file and writes the password into it
      * @param thePassword
      */
     public static void createPasswordFile(byte[] thePassword) {
@@ -268,7 +340,7 @@ public class DefendYourCode {
 			System.out.println("Error: File not found");
 		}
     }
-    
+
     /**
      * This method is used for testing a string with a regex.
      * @param theRegex
