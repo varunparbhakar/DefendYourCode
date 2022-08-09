@@ -102,7 +102,7 @@ def collectPassword():
                     + "- Contains at least 1 lower case character\n"
                     + "- Contains at least 1 digit\n"
                     + "- Contains at least 1 punctuation mark\n"
-                    + "- Does not have 3 consecutive lower case characters")
+                    + "- Does not have 3 consecutive lower case characters\n")
          if(validatePassword(userResponse)):
              password = hashPassword(userResponse, salt)
              createPasswordFile(password)
@@ -117,7 +117,7 @@ def collectPassword():
              print("Error: Please enter a valid password (EX: PasSWoRd1!)")
              
 def validatePassword(thePassword):
-    return regexEngine("^(?=.+[a-z])(?=.+[A-Z])(?=.+[!?.,()\\]\\[{}])(?=.+\\d)(?!.+[a-z][a-z][a-z])[a-zA-z!?.,()\\]\\[{}\\d]{10,}$", thePassword)
+    return regexEngine("^(?=.+[a-z])(?=.+[A-Z])(?=.+[!?.,()\\]\\[{}])(?=.+\\d)(?!.+[a-z][a-z][a-z])(?![a-z][a-z][a-z])[a-zA-z!?.,()\\]\\[{}\\d]{10,}$", thePassword)
 
 def verifyPassword(thePassword):
     f = open("Password.txt", "rb")
