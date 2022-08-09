@@ -23,7 +23,7 @@ import javax.crypto.spec.PBEKeySpec;
 public class DefendYourCode {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
- //       String userName = collectName(scan);
+        String userName = collectName(scan);
 
         //Collecting integer
         // The user has the ability to enter the max integer
@@ -32,16 +32,16 @@ public class DefendYourCode {
         // then you can just convert it to Big Int and do the math or just write
         // the result as "overflow".
         System.out.println("Collecting Integer 1");
-  //      int integer1 = collectInteger(scan);
+        int integer1 = collectInteger(scan);
         System.out.println("Collecting Integer 2");
-  //      int integer2 = collectInteger(scan);
+        int integer2 = collectInteger(scan);
 
         //Collecting File Name
         //Make sure the input and output file names are not the same when collected
         System.out.println("Collecting input file");
-  //      String inputFileName = collectFileName(scan);
+        String inputFileName = collectFileName(scan);
         System.out.println("Collecting output file");
-  //      String outputFileName = collectFileName(scan);
+        String outputFileName = collectFileName(scan);
         
         //Collecting password
         System.out.println("Collecting password");
