@@ -64,20 +64,41 @@ public class DefendYourCode {
             myWriter.write("First Name: " + theNames[0] + "\n");
             myWriter.write("Last Name: " + theNames[1] + "\n");
             myWriter.write("First integer: " + theInt1 + "\nSecond integer: " + theInt2 + "\n");
-            int theSum = theInt1 + theInt2;
-            int theProduct = theInt1 * theInt2;
+            String theSum = addingInts(theInt1, theInt2);
+            String theProduct = multiplyInts(theInt1, theInt2);
             myWriter.write("The Sum: " + theSum + "\nThe Product: " + theProduct + "\n");
             myWriter.write("Input File Name: " + theInFileName + "\n");
             myWriter.write("The Contents of the input file are below:\n");
             myWriter.write(getInputContents(theInFileName));
         } catch (IOException e){
-            System.out.println("An Error occured.");
+            System.out.println("An Error occurred.");
             e.printStackTrace();
         }
     }
-
+    public static String addingInts(int theInt1, int theInt2){
+        String result = "";
+        long theSum = (long)theInt1 + (long)theInt2;
+        if(theSum > Integer.MAX_VALUE){
+            throw new ArithmeticException("Integer Overflow from addition");
+        } else if(theSum < Integer.MIN_VALUE){
+            throw new ArithmeticException("Integer Underflow from addition");
+        }
+        result += theSum;
+        return result;
+    }
+    public static String multiplyInts(int theInt1, int theInt2){
+        String result = "";
+        long theProduct = (long)theInt1 * (long)theInt2;
+        if(theProduct > Integer.MAX_VALUE){
+            throw new ArithmeticException("Integer Overflow from Multiplication");
+        } else if(theProduct < Integer.MIN_VALUE){
+            throw new ArithmeticException("Integer Underflow from Multiplication");
+        }
+        result += theProduct;
+        return result;
+    }
     /**
-     * Method to retrive the contents of the Input file
+     * Method to retrieve the contents of the Input file
      * @param theInFileName name of the input file.
      * @return the contents of the input file.
      */
