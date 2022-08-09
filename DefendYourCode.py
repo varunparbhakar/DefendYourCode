@@ -29,7 +29,7 @@ def printIntoFile(theUserName, theInt1, theInt2, theInFile, theOutFile):
     theLastName = theSplitNames[1]
     theFileWrite.write("First Name: " + theFirstName + "\n")
     theFileWrite.write("Last Name: " + theLastName + "\n")
-    theFileWrite.write("First Integer: " + theInt1 + "\nSecondInteger: " + theInt2)
+    theFileWrite.write("First Integer: " + str(theInt1) + "\nSecondInteger: " + str(theInt2))
     theSum = addingInts(theInt1, theInt2)
     theProduct = multiplyInts(theInt1, theInt2)
     theFileWrite.write("\nThe Sum: " + theSum + "\nTheProduct: " + theProduct)
@@ -50,7 +50,7 @@ def addingInts(theInt1, theInt2):
     if(theSum > 2 ** 31 - 1 || theSum < -2 ** 32):
         result += "integer Overflow occurs"
     else:
-        result += theSum
+        result += str(theSum)
     return result
 
 def multiplyInts(theInt1, theInt2):
@@ -59,7 +59,7 @@ def multiplyInts(theInt1, theInt2):
     if(theMult > 2 ** 31 - 1 || theMult < -2 ** 32):
         result += "integer Overflow occurs"
     else:
-        result += theMult
+        result += str(theMult)
     return result
 
 def collectName():
