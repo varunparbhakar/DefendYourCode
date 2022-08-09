@@ -45,6 +45,11 @@ class DefendYourCodeTest {
 	}
 	
 	@Test
+	void testPasswordPassed() {
+		assertTrue(DefendYourCode.validatePassword("PaSsWorD1!"));
+	}
+	
+	@Test
 	void testPasswordVerificationPass() {
 		SecureRandom rand = new SecureRandom();
     	byte [] salt = new byte[16];
