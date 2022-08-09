@@ -21,7 +21,7 @@ import javax.crypto.spec.PBEKeySpec;
 public class DefendYourCode {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        String userName = collectName(scan);
+    //    String userName = collectName(scan);
 
         //Collecting integer
         // The user has the ability to enter the max integer
@@ -30,16 +30,16 @@ public class DefendYourCode {
         // then you can just convert it to Big Int and do the math or just write
         // the result as "overflow".
         System.out.println("Collecting Integer 1");
-        int integer1 = collectInteger(scan);
+    //    int integer1 = collectInteger(scan);
         System.out.println("Collecting Integer 2");
-        int integer2 = collectInteger(scan);
+    //    int integer2 = collectInteger(scan);
 
         //Collecting File Name
         //Make sure the input and output file names are not the same when collected
         System.out.println("Collecting input file");
-        String inputFileName = collectFileName(scan);
+    //    String inputFileName = collectFileName(scan);
         System.out.println("Collecting output file");
-        String outputFileName = collectFileName(scan);
+   //     String outputFileName = collectFileName(scan);
         
         //Collecting password
         System.out.println("Collecting password");
@@ -186,11 +186,11 @@ public class DefendYourCode {
     	while(pass == false) {
     		System.out.println("Please enter a password that:\n"
     				+ "- Is at least 10 characters long\n"
-    				+ "- Contains at least 1 uppercase character\n"
-    				+ "- Contains at least 1 lowercase character\n"
+    				+ "- Contains at least 1 upper case character\n"
+    				+ "- Contains at least 1 lower case character\n"
     				+ "- Contains at least 1 digit\n"
-    				+ "- Contains at least 1 puncuation mark\n"
-    				+ "- Does not have 3 consecutive lowercase characters");
+    				+ "- Contains at least 1 punctuation mark\n"
+    				+ "- Does not have 3 consecutive lower case characters");
     		userResponse = theInput.nextLine().strip();
     		if (validatePassword(userResponse)) {
     			byte[] password = hashPassword(userResponse, salt);
@@ -231,7 +231,7 @@ public class DefendYourCode {
      * @return
      */
     private static boolean validatePassword(String thePassword) {
-    	String regex = "^(?=.+[a-z])(?=.+[A-Z])(?=.+[!?.,()\\]\\[{}])(?=.+\\d)(?!.+[a-z][a-z][a-z])[a-zA-z!?.,()\\]\\[{}\\d]{10,}$";
+    	String regex = "^(?=.+[a-z])(?=.+[A-Z])(?=.+[!?.,()\\]\\[{}])(?=.+\\d)(?!.+[a-z][a-z][a-z])(?![a-z][a-z][a-z])[a-zA-z!?.,()\\]\\[{}\\d]{10,}$";
     	return regexEngine(regex, thePassword);
     }
   
