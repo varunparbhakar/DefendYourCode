@@ -159,6 +159,7 @@ public class DefendYourCode {
             try {
                 File test = new File(theFileName);
                 if(!test.exists()) {
+                    System.out.println("File does not exist");
                     return false;
                 }
             } catch (Exception e) {
